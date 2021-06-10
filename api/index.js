@@ -1,6 +1,7 @@
 const express = require('express');
 const socket = require('./socket');
 const config = require('../config');
+const db = require('../mongodb/index')
 
 
 //Middlewares
@@ -14,11 +15,12 @@ const server = require('http').Server(app);
 
 //Settings
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 
 //Routes
 app.use('/api/user', user);
 app.use('/api/auth', auth);
+db()
 
 //Errors
 app.use(errors);
