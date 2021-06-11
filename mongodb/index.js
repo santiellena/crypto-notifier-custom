@@ -1,7 +1,9 @@
 const express = require('express');
-
-const router = require('./network');
 const config = require('../config');
+const db = require('../store/mongodb');
+
+const user = require('./components/user/network');
+
 
 //Initialization
 const app = express();
@@ -9,9 +11,10 @@ const app = express();
 //Settings
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+db();
 
 //Routes
-app.use('/' ,router);
+app.use('/user' , user);
 
 //API initialization
 app.listen(config.mongoService.port, () => {

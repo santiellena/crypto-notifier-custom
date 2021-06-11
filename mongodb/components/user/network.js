@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const response = require('../network/response');
-const store = require('../store/mongodb');
+const response = require('../../../network/response');
+const store = require('./store');
 
-router.get('/:collection', (req, res, next) => {
+router.get('/', (req, res, next) => {
 
     store.list(req.params.collection)
     .then(data => {
@@ -18,9 +18,9 @@ router.get('/:collection', (req, res, next) => {
     
 });
 
-router.get('/:collection/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
 
-    store.get(req.params.collection, req.params.id)
+    store.get(req.params.id)
     .then(data => {
         response.success(req, res, data, 200);
     })

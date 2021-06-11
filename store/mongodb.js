@@ -24,46 +24,4 @@ const connect = () =>{
         });
 }
 
-connect();
-
-let Store;
-
-const list = async (collection) => {
-
-    Store = require(`../mongodb/models/${collection}`);
-    return await Store.find();
-};
-
-const get = (collection, id) => {
-
-    Store = require(`../mongodb/models/${collection}`);
-    
-    return Store.find({_id : id});
-}
-
-const insert = (collection, data) => {
-
-    Store = require(`../mongodb/models/${collection}`);
-
-    const newData = new Store({data});
-
-    newData.save();
-
-    return newData;
-    
-};
-
-const update = (collection, id, data) => {
-
-
-}
-
-module.exports = {
-    list,
-    get,
-    insert,
-    update,
-}
-
-
-
+module.exports = connect;
