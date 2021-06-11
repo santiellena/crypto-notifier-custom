@@ -1,20 +1,23 @@
-const db = require("mongoose")
-const configs = require('../config')
-const uri = configs.mongodb.uri
-const config = {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    authSource: "admin"
-};
+const express = require('express');
+const config = require('../config');
+const db = require('../store/mongodb');
 
-db.Promise = global.Promise
+const user = require('./components/user/network');
 
-const connect = () =>{
-    db.connect(uri, config)
-        .then(() => console.log("[mongodb] Successfully connected"))
-        .catch(e => console.log("[mongodb] Connection failed", e))
-}
 
-module.exports = connect
+//Initialization
+const app = express();
+
+//Settings
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+db();
+
+//Routes
+app.use('/user' , user);
+
+//API initialization
+app.listen(config.mongoService.port, () => {
+
+    console.log(`MongoDB Service listening... ${config.mongoService.host}:${config.mongoService.port}`);
+});

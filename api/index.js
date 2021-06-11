@@ -20,7 +20,6 @@ app.use(express.urlencoded({extended: true}));
 //Routes
 app.use('/api/user', user);
 app.use('/api/auth', auth);
-db()
 
 //Errors
 app.use(errors);
