@@ -1,7 +1,27 @@
-const request = require('request');
+const axios = require('axios');
 
 function createRemoteDB (host, port){
     const URL = `${host}:${port}`;
+
+    const req = (method, collection, data) => {
+
+        let url = `${URL}/${collection}`;
+
+        body = data ? data : '';
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method,
+                url,
+                body,
+            })
+            .then(response => resolve(response.data.body))
+            .catch(err => reject(err));
+           
+
+        });
+    }
 
     const list = (collection) => {
 
@@ -11,34 +31,6 @@ function createRemoteDB (host, port){
     //const get = (collection, id) => {}
     //const insert = (collection, data) => {}
     //const insert = (collection, id, data) => {}
-
-    const req = (method, collection, data) => {
-
-        let url = `${URL}/${collection}`;
-
-        body = '';
-
-        return new Promise((resolve, reject) => {
-
-            request({
-                method,
-                headers: {
-                    'content-type': 'application/json'
-                },
-                url,
-                body,
-            }, (err, req, body) => {
-                
-                if(err){
-                    console.error('Remote DB Error', err);
-                    return reject(err.message);
-                }
-
-                const response = JSON.parse(body);
-                return resolve(response.body);
-            });
-        });
-    }
 
     return {
         list,
