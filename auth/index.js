@@ -1,5 +1,6 @@
-const jwt = require('jsonwebtoken')
-const configs = require('../config')
+const jwt = require('jsonwebtoken');
+const configs = require('../config');
+const error  = require('../utils/error');
 
 function auth(data){
     const token = jwt.sign({userData: data}, configs.jwt.secret, {
@@ -34,7 +35,7 @@ const getToken = (auth) => {
         throw error('There is not TOKEN', 401);
     }
     if(auth.indexOf('Bearer ', '') == -1){
-        throw new Error('Incorrect TOKEN information', 401);
+        throw error('Incorrect TOKEN information', 401);
     }
 
     let token = auth.replace('Bearer ', '');
