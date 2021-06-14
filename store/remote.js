@@ -3,9 +3,9 @@ const axios = require('axios');
 function createRemoteDB (host, port){
     const URL = `${host}:${port}`;
 
-    const req = (method, collection, data) => {
+    const req = (method, collection, data, action) => {
 
-        let url = `${URL}/${collection}`;
+        let url = `${URL}/${collection}${action ? action : ''}`;
 
         body = data ? data : '';
 
@@ -30,6 +30,10 @@ function createRemoteDB (host, port){
         return req('POST', collection, data)
     }
 
+    const searchEmail = (collection, data, action) => {
+        return req('GET', collection, data, action)
+    }
+
 
 
     //const get = (collection, id) => {}
@@ -38,6 +42,7 @@ function createRemoteDB (host, port){
     return {
         list,
         insert,
+        searchEmail
     }
 }
 

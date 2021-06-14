@@ -10,6 +10,11 @@ const get = async (id) => {
     return await store.find({_id : id});
 };
 
+const searchEmail = async(email) => {
+    return await store.findOne({email: email})
+}
+
+
 const insert = async (data) => {
     const newUser = new store(data);
 
@@ -25,4 +30,5 @@ module.exports = {
     get,
     insert,
     update,
+    searchEmail
 }

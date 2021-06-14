@@ -24,4 +24,18 @@ router.post('/register', (req, res) => {
     
 });
 
+router.post("/login", (req,res) => {
+    const {email, password} = req.body
+
+    controller.login(email, password)
+    .then(data => {
+        response.success(req,res,data,200)
+    })
+    .catch(err => {
+        console.log(err);
+        response.error(req,res,err,400)
+    })
+})
+
+
 module.exports = router;

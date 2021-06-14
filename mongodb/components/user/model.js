@@ -27,10 +27,6 @@ const userSchema = new Schema({
 });
 
 userSchema.plugin(uniqueValidator, {message: "Error, {PATH} already exists"})
-userSchema.methods.toJSON = function (){
-    var obj = this.toObject();
-    delete obj.password
-    return obj
-}
+
 
 module.exports = mongoose.model('user', userSchema);
