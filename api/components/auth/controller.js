@@ -23,7 +23,7 @@ module.exports = (injectedStore) => {
             throw error("Email or password invalid", 400)
         }
         delete data.password
-        return auth(data)
+        return auth.auth(data)
     }
 
     return {
