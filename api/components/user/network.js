@@ -3,8 +3,9 @@ const router = express.Router();
 
 const controller = require('./index');
 const response = require('../../../network/response');
+const secure = require('./secure');
 
-router.get('/', (req, res) => {
+router.get('/', secure('get'), (req, res) => {
 
     controller.list()
     .then(data => {
