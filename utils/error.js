@@ -4,7 +4,7 @@ const error = (message, code) => {
     if(code){
         err.statusCode = code
     }
-
+    err.data = message   
     return err;
 }
 
