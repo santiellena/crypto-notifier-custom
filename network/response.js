@@ -24,5 +24,7 @@ exports.error = (req, res, message, status, dbMessage) => {
         body: statusMessage,
         messageError: statusDbMessage
     });
-    statusDbMessage
+    setTimeout(() => {
+        statusDbMessage = ''
+    }, 100)
 };
