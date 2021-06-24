@@ -1,6 +1,7 @@
 const express = require('express');
 const socket = require('./socket');
 const config = require('../config');
+const cors = require('cors')
 const db = require('../mongodb/index')
 
 
@@ -11,6 +12,7 @@ const errors = require('../network/errors');
 
 //Initializations
 const app = express();
+app.use(cors())
 const server = require('http').Server(app);
 
 //Settings

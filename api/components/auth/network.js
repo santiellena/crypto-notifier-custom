@@ -6,6 +6,7 @@ const controller = require('./index');
 const response = require('../../../network/response');
 
 router.post('/register', (req, res) => {
+    console.log('lol');
     const {username, fullName, email, password}  = req.body
 
     const toCreate = {
