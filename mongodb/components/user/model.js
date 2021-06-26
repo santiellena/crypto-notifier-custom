@@ -21,6 +21,13 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    mediaList:[
+        {
+            media: {type: String},
+            value: {type: String}
+        }
+    ],
+
     followingList: [{
         type: Object,
     }],

@@ -11,7 +11,7 @@ function auth(data){
 
 const verify = (token) => {
     try{
-        return jwt.verify(token, secret);
+        return jwt.verify(token, configs.jwt.secret);
     }catch(error){
         throw error(error, 401);
     };
