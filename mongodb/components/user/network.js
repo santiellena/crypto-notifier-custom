@@ -4,6 +4,10 @@ const router = express.Router();
 const response = require('../../../network/response');
 const store = require('./store');
 
+
+/* POST REQUEST */
+
+//create user
 router.post('/', (req, res, next) => {
 
     store.insert(req.body)
@@ -17,6 +21,10 @@ router.post('/', (req, res, next) => {
     });
 });
 
+
+/* GET REQUEST */
+
+//find email
 router.get('/searchEmail', (req,res,next) => {
     store.searchEmail(req.query.email)
     .then(data => {
@@ -27,7 +35,7 @@ router.get('/searchEmail', (req,res,next) => {
     });
 })
 
-
+//get user
 router.get('/', (req, res, next) => {
 
     store.list(req.params.collection)
@@ -42,6 +50,7 @@ router.get('/', (req, res, next) => {
     
 });
 
+//get unique user
 router.get('/:id', (req, res, next) => {
 
     store.get(req.params.id)
@@ -54,6 +63,12 @@ router.get('/:id', (req, res, next) => {
     
 });
 
- 
+
+
+
+/* PUT REQUEST */
+router.put("/addMediaList", (req, res, next) => {
+    
+})
 
 module.exports = router;
