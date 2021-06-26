@@ -30,7 +30,7 @@ router.get('/searchEmail', (req,res,next) => {
 
 router.get('/', (req, res, next) => {
 
-    store.list(req.params.collection)
+    store.list()
     .then(data => {
 
         response.success(req, res, data, 200);
@@ -43,7 +43,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-
+  
     store.get(req.params.id)
     .then(data => {
         response.success(req, res, data, 200);

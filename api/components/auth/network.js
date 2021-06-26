@@ -6,7 +6,6 @@ const controller = require('./index');
 const response = require('../../../network/response');
 
 router.post('/register', (req, res) => {
-    console.log('lol');
     const {username, fullName, email, password}  = req.body
 
     const toCreate = {
@@ -17,11 +16,11 @@ router.post('/register', (req, res) => {
     }
     controller.insert(toCreate)
     .then(data => {
-        response.success(req,res,data,200)
+        response.success(req, res, data, 200);
     })
     .catch(err => {
-        response.error(req,res,err,400)
-    })
+        response.error(req, res, err, 400);
+    });
     
 });
 
@@ -30,13 +29,13 @@ router.post("/login", (req,res) => {
 
     controller.login(email, password)
     .then(data => {
-        response.success(req,res,data,200)
+        response.success(req,res,data,200);
     })
     .catch(err => {
         console.log(err);
-        response.error(req,res,err,400)
-    })
-})
+        response.error(req, res, err, 400);
+    });
+});
 
 
 module.exports = router;

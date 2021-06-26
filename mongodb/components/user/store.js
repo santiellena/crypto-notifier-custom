@@ -6,8 +6,9 @@ const list = async () => {
 };
 
 const get = async (id) => {
-
-    return await store.find({_id : id});
+    let data = await store.findOne({_id : id});
+    
+    return data
 };
 
 const searchEmail = async(email) => {

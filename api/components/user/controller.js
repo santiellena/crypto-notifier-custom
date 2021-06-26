@@ -1,4 +1,4 @@
-const error = require('../../../utils/error')
+const boom = require('@hapi/boom');
 const auth = require('../auth/index')
 
 const collection = 'user';
@@ -7,7 +7,7 @@ module.exports = (injectedStore) => {
     let store = injectedStore;
     if (!store) {
         
-        throw error('No Injected Database', 500);
+        throw boom.internal('No injected database');
     }
 
     const list = async () => {
@@ -15,8 +15,15 @@ module.exports = (injectedStore) => {
         return await store.list(collection);
     };
 
+    const get = async (id) => {
+        const data = await store.get(collection, id);
+        delete data.password;
+        return data
+    };
+
     return {
         list,
+        get,
     }
 
 }

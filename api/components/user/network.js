@@ -3,17 +3,15 @@ const router = express.Router();
 
 const controller = require('./index');
 const response = require('../../../network/response');
-const secure = require('./secure');
+const secure = require('../../../utils/middlewares/secure');
 
-router.get('/', secure('get'), (req, res) => {
+router.get('/:id', secure('get'), (req, res, next) => {
 
-    controller.list()
+    controller.get(req.params.id)
     .then(data => {
         response.success(req, res, data, 200);
     })
-    .catch(e => {
-        response.error(req, res, e, 400);
-    });
+    .catch(next);
 });
 
 module.exports = router;

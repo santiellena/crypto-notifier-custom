@@ -1,4 +1,4 @@
-const error = require('../../../utils/error')
+const boom = require('@hapi/boom');
 const bcrypt = require("bcrypt");
 const auth = require('../../../auth');
 
@@ -8,7 +8,7 @@ module.exports = (injectedStore) => {
     let store = injectedStore;
     if (!store) {
         
-        throw error('No Injected Database', 500);
+        throw boom.internal('No injected database');
     }
     const insert = async (data) => {
         return await store.insert(collection, data);
@@ -17,10 +17,10 @@ module.exports = (injectedStore) => {
     const login = async(email, password) => {
         const data = await store.searchEmail(collection, email, `/searchEmail?email=${email}`)
         if (!data) {
-            throw error("Email or password invalid", 400)
+            throw boom.badRequest('Email or password incorrect');
         }
         if (!bcrypt.compareSync(password, data.password)) {
-            throw error("Email or password invalid", 400)
+            throw boom.badRequest("Email or password invalid");
         }
         delete data.password
         return auth.auth(data)
