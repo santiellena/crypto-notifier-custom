@@ -68,7 +68,13 @@ router.get('/:id', (req, res, next) => {
 
 /* PUT REQUEST */
 router.put("/addMediaList", (req, res, next) => {
-    
+    store.addMediaList(req.body)
+    .then(data => {
+        response.success(req, res, 'You has added a new media', 200);
+    })
+    .catch(e => {
+        response.error(req, res, e, 400);
+    });
 })
 
 module.exports = router;
