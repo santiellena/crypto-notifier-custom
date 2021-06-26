@@ -17,6 +17,17 @@ router.get('/', secure('get'), (req, res) => {
 });
 
 
+router.get("/:id", secure('get'), (req,res) => {
+    controller.get(req.params.id)
+    .then(data => {
+        response.success(req, res, data, 200);
+    })
+    .catch(e => {
+        response.error(req, res, e, 400);
+    });
+})
+
+
 
 //PUT request - add media to user
 router.put('/addMedia', secure('update'), (req,res) => {

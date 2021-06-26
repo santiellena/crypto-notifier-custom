@@ -43,7 +43,8 @@ module.exports = (injectedStore) => {
 
     return {
         list,
-        update
+        update,
+        get
     }
 
 }
