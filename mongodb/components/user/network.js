@@ -77,4 +77,15 @@ router.put("/addMediaList", (req, res, next) => {
     });
 })
 
+
+router.put('/deleteMedia', (req,res,next) => {
+    store.deleteMedia(req.body)
+    .then(data => {
+        response.success(req, res, 'You has deleted the media', 200)
+    })
+    .catch(e => {
+        response.error(req, res, e, 400);
+    })
+})
+
 module.exports = router;

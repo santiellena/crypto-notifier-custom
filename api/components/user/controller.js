@@ -41,10 +41,21 @@ module.exports = (injectedStore) => {
     }
 
 
+    const deleteMedia = async (userId, mediaId) => {
+        const toSend = {
+            userId,
+            mediaId
+        }
+        const userGet = await store.deleteMedia(collection, toSend, '/deleteMedia')
+        return userGet
+    }
+
+
     return {
         list,
         update,
-        get
+        get,
+        deleteMedia
     }
 
 }
