@@ -50,12 +50,23 @@ module.exports = (injectedStore) => {
         return userGet
     }
 
+    const updateMedia = async(userId, mediaId, value) => {
+        const toSend = {
+            userId,
+            mediaId,
+            value
+        }
+        const userGet = await store.updateMedia(collection, toSend, '/updateMedia')
+        return userGet
+    }
+
 
     return {
         list,
         update,
         get,
-        deleteMedia
+        deleteMedia,
+        updateMedia
     }
 
 }

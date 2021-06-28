@@ -34,6 +34,13 @@ const deleteMedia = async(data) => {
     return await store.findOneAndUpdate({_id: userId, "mediaList._id": mediaId},{$pull: {mediaList: {_id: mediaId}}}, {runValidators: true, new: true} ) 
 }
 
+const updateMedia = async(data) => {
+    const userId = data.userId
+    const mediaId = data.mediaId
+    const value = data.value
+
+    return await store.findOneAndUpdate({_id: userId, "mediaList._id": mediaId},{$set: {"mediaList.$.value": value}}, {runValidators: true, new: true} ) 
+}
 
 const update = async () => {
 
@@ -46,5 +53,6 @@ module.exports = {
     update,
     searchEmail, 
     addMediaList,
-    deleteMedia
+    deleteMedia,
+    updateMedia
 }
