@@ -6,8 +6,8 @@ const list = async () => {
 };
 
 const get = async (id) => {
-
-    return await store.find({_id : id});
+    const user = await store.findOne({_id : id});
+    return user 
 };
 
 const searchEmail = async(email) => {
@@ -23,7 +23,7 @@ const insert = async (data) => {
 
 
 const addMediaList = async(data) => {
-    return await store.findOneAndUpdate({_id: data.userId}, {$push: {mediaList: data.media}}, {runValidators: true, new: true})
+    return await store.findOneAndUpdate({_id: data.userId}, {$push: {mediaList: {media: data.media.media, value: data.media.value}}}, {runValidators: true, new: true})
 }
 
 
