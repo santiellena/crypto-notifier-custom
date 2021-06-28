@@ -20,6 +20,8 @@ router.get('/', secure('get'), (req, res) => {
 router.get("/:id", secure('get'), (req,res) => {
     controller.get(req.params.id)
     .then(data => {
+        delete data.password
+        console.log(data);
         response.success(req, res, data, 200);
     })
     .catch(e => {
