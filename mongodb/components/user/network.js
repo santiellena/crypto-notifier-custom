@@ -67,6 +67,21 @@ router.get('/:id', (req, res, next) => {
 
 
 /* PUT REQUEST */
+
+//Verify email
+router.put("/verifyemail", (req,res,next) => {
+    store.verifyEmail(req.body.secretToken)
+    .then(data => {
+        console.log(data);
+        response.success(req, res, 'You has verified your email', 200);
+    })
+    .catch(e => {
+
+        response.error(req, res, e, 400);
+    });
+})
+
+
 //ADD MEDIA
 router.put("/addMediaList", (req, res, next) => {
     store.addMediaList(req.body)

@@ -23,7 +23,7 @@ async function createVerificationEmail(recipient, secretToken) {
         <br/><br/>
         Please verify your email in the next link
         <br/>
-        <a href="${configs.frotEnd.url}/verify/${secretToken}">${configs.frotEnd.url}/verify?secretToken=${secretToken}</a>
+        <a href="${configs.frotEnd.url}/verify?secretToken=${secretToken}">Verify now!</a>
         <br/><br/>
         Have a pleasant day!`
     };

@@ -54,6 +54,11 @@ function createRemoteDB (host, port){
         return req('PUT', collection, data, action)
     }
 
+    const verifyEmail = (collection, data, action) => {
+        console.log(data);
+        return req('PUT', collection, data, action)
+    }
+
 
     //const get = (collection, id) => {}
     //const insert = (collection, id, data) => {}
@@ -65,7 +70,8 @@ function createRemoteDB (host, port){
         addMediaList,
         get,
         deleteMedia,
-        updateMedia
+        updateMedia,
+        verifyEmail
     }
 }
 

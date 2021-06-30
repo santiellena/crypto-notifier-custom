@@ -27,6 +27,21 @@ router.post('/register', (req, res) => {
     
 });
 
+
+router.put("/verifyemail", (req,res) => {
+    console.log('url',req.body);
+    const {secretToken} = req.body
+    controller.verify({secretToken: secretToken})
+    .then(data => {
+        response.success(req,res,data,200)
+    })
+    .catch(err => {
+        response.error(req,res,err,400)
+    })
+
+})
+
+
 router.post("/login", (req,res) => {
     const {email, password} = req.body
 
