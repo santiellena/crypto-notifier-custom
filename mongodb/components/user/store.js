@@ -1,3 +1,4 @@
+const { createVerificationEmail } = require('../../../auth/verificationEmail');
 const store = require('./model');
 
 const list = async () => {
@@ -17,8 +18,16 @@ const searchEmail = async(email) => {
 
 const insert = async (data) => {
     const newUser = new store(data);
-
-    return await newUser.save();
+    console.log(data);
+    const saveUser = await newUser.save();
+    if (saveUser) {
+        const sendEmail = await createVerificationEmail(data.email, data.secretTokenEmail)
+        if (sendEmail) {
+            return saveUser
+        }
+    }else{
+        return false
+    }
 }
 
 

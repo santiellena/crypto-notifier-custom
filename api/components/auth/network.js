@@ -4,15 +4,18 @@ const bcrypt = require('bcrypt')
 
 const controller = require('./index');
 const response = require('../../../network/response');
+const makeid = require('../../../utils/makeid');
 
 router.post('/register', (req, res) => {
     const {username, fullName, email, password}  = req.body
+    const secretTokenEmail = makeid(10)
 
     const toCreate = {
         username,
         fullName,
         email,
-        password: bcrypt.hashSync(password, 10)
+        password: bcrypt.hashSync(password, 10),
+        secretTokenEmail
     }
     controller.insert(toCreate)
     .then(data => {
