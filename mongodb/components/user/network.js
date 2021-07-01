@@ -16,7 +16,7 @@ router.post('/', (req, res, next) => {
         response.success(req, res, data, 200);
     })
     .catch(e => {
-        console.log(e)
+        
         response.error(req, res, e, 400, e);
     });
 });
@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
 /* GET REQUEST */
 
 //find email
-router.get('/searchEmail', (req,res,next) => {
+router.get('/searchEmail', (req, res) => {
     store.searchEmail(req.query.email)
     .then(data => {
         response.success(req, res, data, 200);

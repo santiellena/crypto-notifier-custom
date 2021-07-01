@@ -1,7 +1,5 @@
 const boom = require('@hapi/boom');
-const auth = require('../auth/index')
-
-const collection = 'user';
+const auth = require('../auth/index');
 
 module.exports = (injectedStore) => {
     let store = injectedStore;
@@ -12,11 +10,12 @@ module.exports = (injectedStore) => {
 
     const list = async () => {
 
-        return await store.list(collection);
+        return await store.list();
     };
 
     const get = async (id) => {
-        return await store.get(collection, null, `/${id}`)
+
+        return await store.get(id);
     }
 
     const update = async (userId, media) => {
@@ -37,14 +36,14 @@ module.exports = (injectedStore) => {
                 value: media.value
             }
         }
-        return await store.addMediaList(collection, toSend, '/addMediaList')
+        return await store.addMediaList(toSend)
     }
 
 
     return {
         list,
         update,
-        get
+        get,
     }
 
 }

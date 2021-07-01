@@ -15,7 +15,7 @@ router.get('/:id', secure('get'), (req, res, next) => {
 });
 
 
-router.get("/:id", secure('get'), (req,res) => {
+router.get('/:id', secure('get'), (req, res) => {
     controller.get(req.params.id)
     .then(data => {
         delete data.password
@@ -44,7 +44,6 @@ router.put('/addMedia', secure('update'), (req,res) => {
     .catch(e => {
         response.error(req, res, e, 400);
     });
-    return
 })
 
 

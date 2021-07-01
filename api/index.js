@@ -11,12 +11,12 @@ const error = require('../utils/error');
 
 //Initializations
 const app = express();
-app.use(cors())
 const server = require('http').Server(app);
 
-//Settings
+//Middlewares settings
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cors());
 
 //Routes
 routes(app);

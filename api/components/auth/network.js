@@ -12,7 +12,7 @@ router.post('/register', (req, res) => {
         username,
         fullName,
         email,
-        password: bcrypt.hashSync(password, 10)
+        password: bcrypt.hashSync(password, 10),
     }
     controller.insert(toCreate)
     .then(data => {
@@ -24,15 +24,15 @@ router.post('/register', (req, res) => {
     
 });
 
-router.post("/login", (req,res) => {
-    const {email, password} = req.body
+router.post("/login", (req, res) => {
+    const {email, password, apiKeyToken} = req.body
 
-    controller.login(email, password)
+    controller.login(email, password, apiKeyToken)
     .then(data => {
-        response.success(req,res,data,200);
+        response.success(req, res, data, 200);
     })
     .catch(err => {
-        console.log(err);
+        
         response.error(req, res, err, 400);
     });
 });

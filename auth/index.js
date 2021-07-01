@@ -4,7 +4,7 @@ const boom = require('@hapi/boom');
 const secret = configs.jwt.secret;
 
 function auth(data){
-    const token = jwt.sign({userData: data}, secret, {
+    const token = jwt.sign(data, secret, {
         expiresIn: 60 * 60 * 24 * 7
     })
     return token;
@@ -21,7 +21,7 @@ const verify = (token) => {
 const check = {
     own: (req, owner) => {
         const decoded = decodeHeader(req);
-        if(decoded.userData._id !== owner){
+        if(decoded._id !== owner){
 
             throw boom.unauthorized('Access denied');
         };

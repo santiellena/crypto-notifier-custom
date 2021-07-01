@@ -6,10 +6,12 @@ function withErrorStack(error, stack) {
     if (config.mode == 'dev') {
       return { ...error, stack };
     }
-    error.data = message;
+
     return error;
-  }
+}
+
 const wrapErrors = (err, req, res, next) => {
+
     if(!err.isBoom){
         next(boom.badImplementation(err));
     }
