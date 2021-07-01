@@ -27,14 +27,28 @@ function createRemoteDB (host, port){
         return req('GET', collection);
     };
 
+    const get = (collection, data, action ) => {
+        return req('GET', collection, null, action)
+    }
+    
+
+    const insert = (collection, data) => {
+        return req('POST', collection, data)
+    }
+
+    const searchEmail = (collection, data, action) => {
+        return req('GET', collection, data, action)
+    }
+
     const get = (collection, id) => {
         
         return req('GET', collection, id);
     };
 
-    const insert = (collection, data) => {
-        return req('POST', collection, null, data);
-    };
+    const addMediaList = (collection, data, action) => {
+        return req('PUT', collection, data, action)
+    }
+
 
     const searchEmail = (collection, data, action) => {
         return req('GET', collection, null, data, action);
@@ -45,7 +59,9 @@ function createRemoteDB (host, port){
         get,
         insert,
         searchEmail,
-    };
-};
+        addMediaList,
+        get
+    }
+}
 
 module.exports = createRemoteDB;

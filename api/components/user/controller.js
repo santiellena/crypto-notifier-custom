@@ -16,14 +16,35 @@ module.exports = (injectedStore) => {
     };
 
     const get = async (id) => {
-        const data = await store.get(collection, id);
-        delete data.password;
-        return data
-    };
+        return await store.get(collection, null, `/${id}`)
+    }
+
+    const update = async (userId, media) => {
+        const userGet = await get(userId)
+        if (!userGet) {
+            throw error('An error has ocurred', 500)
+        }
+        const mediasUser = userGet.mediaList
+        const checkMedia = mediasUser.find(element => element.media === media.media)
+        if (checkMedia) {
+            throw error(`You already have this media, ${checkMedia.media}`)
+        }
+
+        const toSend = {
+            userId: userId,
+            media: {
+                media: media.media,
+                value: media.value
+            }
+        }
+        return await store.addMediaList(collection, toSend, '/addMediaList')
+    }
+
 
     return {
         list,
-        get,
+        update,
+        get
     }
 
 }

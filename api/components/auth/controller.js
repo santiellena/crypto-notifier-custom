@@ -23,7 +23,8 @@ module.exports = (injectedStore) => {
             throw boom.badRequest("Email or password invalid");
         }
         delete data.password
-        return auth.auth(data)
+        const token = auth.auth(data)
+        return `Bearer ${token}`
     }
 
     return {

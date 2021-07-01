@@ -6,6 +6,7 @@ function withErrorStack(error, stack) {
     if (config.mode == 'dev') {
       return { ...error, stack };
     }
+    error.data = message;
     return error;
   }
 const wrapErrors = (err, req, res, next) => {
@@ -30,6 +31,7 @@ const notFound = (req, res) => {
         response.error(req, res, payload, statusCode);
 
 };
+    
 
 module.exports = {
     wrapErrors,

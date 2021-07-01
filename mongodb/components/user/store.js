@@ -6,9 +6,8 @@ const list = async () => {
 };
 
 const get = async (id) => {
-    let data = await store.findOne({_id : id});
-    
-    return data
+    const user = await store.findOne({_id : id});
+    return user 
 };
 
 const searchEmail = async(email) => {
@@ -22,6 +21,12 @@ const insert = async (data) => {
     return await newUser.save();
 }
 
+
+const addMediaList = async(data) => {
+    return await store.findOneAndUpdate({_id: data.userId}, {$push: {mediaList: {media: data.media.media, value: data.media.value}}}, {runValidators: true, new: true})
+}
+
+
 const update = async () => {
 
     return true
@@ -31,5 +36,6 @@ module.exports = {
     get,
     insert,
     update,
-    searchEmail
+    searchEmail, 
+    addMediaList
 }
