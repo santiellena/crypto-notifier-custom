@@ -19,11 +19,11 @@ router.post('/register', (req, res) => {
     }
     controller.insert(toCreate)
     .then(data => {
-        response.success(req,res,data,200)
+        response.success(req, res, data, 200);
     })
     .catch(err => {
-        response.error(req,res,err,400)
-    })
+        response.error(req, res, err, 400);
+    });
     
 });
 
@@ -41,19 +41,19 @@ router.put("/verifyemail", (req,res) => {
 
 })
 
+router.post("/login", (req, res) => {
+    const {email, password, apiKeyToken} = req.body
 
-router.post("/login", (req,res) => {
-    const {email, password} = req.body
 
-    controller.login(email, password)
+    controller.login(email, password, apiKeyToken)
     .then(data => {
-        response.success(req,res,data,200)
+        response.success(req, res, data, 200);
     })
     .catch(err => {
-        console.log(err);
-        response.error(req,res,err,400)
-    })
-})
+        
+        response.error(req, res, err, 400);
+    });
+});
 
 
 module.exports = router;

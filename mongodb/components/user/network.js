@@ -16,7 +16,7 @@ router.post('/', (req, res, next) => {
         response.success(req, res, data, 200);
     })
     .catch(e => {
-        console.log(e)
+        
         response.error(req, res, e, 400, e);
     });
 });
@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
 /* GET REQUEST */
 
 //find email
-router.get('/searchEmail', (req,res,next) => {
+router.get('/searchEmail', (req, res) => {
     store.searchEmail(req.query.email)
     .then(data => {
         response.success(req, res, data, 200);
@@ -38,7 +38,7 @@ router.get('/searchEmail', (req,res,next) => {
 //get user
 router.get('/', (req, res, next) => {
 
-    store.list(req.params.collection)
+    store.list()
     .then(data => {
 
         response.success(req, res, data, 200);
@@ -52,7 +52,7 @@ router.get('/', (req, res, next) => {
 
 //get unique user
 router.get('/:id', (req, res, next) => {
-
+  
     store.get(req.params.id)
     .then(data => {
         response.success(req, res, data, 200);

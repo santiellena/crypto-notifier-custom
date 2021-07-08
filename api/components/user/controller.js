@@ -1,22 +1,21 @@
-const error = require('../../../utils/error')
-const auth = require('../auth/index')
-
-const collection = 'user';
+const boom = require('@hapi/boom');
+const auth = require('../auth/index');
 
 module.exports = (injectedStore) => {
     let store = injectedStore;
     if (!store) {
         
-        throw error('No Injected Database', 500);
+        throw boom.internal('No injected database');
     }
 
     const list = async () => {
 
-        return await store.list(collection);
+        return await store.list();
     };
 
     const get = async (id) => {
-        return await store.get(collection, null, `/${id}`)
+
+        return await store.get(id);
     }
 
     const update = async (userId, media) => {
@@ -37,7 +36,7 @@ module.exports = (injectedStore) => {
                 value: media.value
             }
         }
-        return await store.addMediaList(collection, toSend, '/addMediaList')
+        return await store.addMediaList(toSend)
     }
 
 

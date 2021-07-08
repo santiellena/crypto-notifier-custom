@@ -1,4 +1,4 @@
-const auth = require('../../../auth/index');
+const auth = require('../../auth/index');
 
 const checkAuth = (action) => {
     let owner;
@@ -10,7 +10,7 @@ const checkAuth = (action) => {
                 next();
                 break;
             case 'get':
-                owner = req.body.id;
+                owner = req.params.id;
                 auth.check.own(req, owner);
                 next(); 
                 break;

@@ -1,4 +1,4 @@
-const store = require('../../../store/remote-mongodb');
+const store = require('./store');
 const controller = require('./controller');
 
 module.exports = controller(store);

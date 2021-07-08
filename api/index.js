@@ -6,25 +6,24 @@ const db = require('../mongodb/index')
 
 
 //Middlewares
-const user = require('./components/user/network');
-const auth = require('./components/auth/network');
-const errors = require('../network/errors');
+const routes = require('./network/routes');
+const error = require('../utils/error');
 
 //Initializations
 const app = express();
-app.use(cors())
 const server = require('http').Server(app);
 
-//Settings
+//Middlewares settings
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cors());
 
 //Routes
-app.use('/api/user', user);
-app.use('/api/auth', auth);
+routes(app);
 
-//Errors
-app.use(errors);
+//Errors middleware
+app.use(error.wrapErrors);
+app.use(error.errors);
 
 //Server initialization
 server.listen(config.api.port, () => {

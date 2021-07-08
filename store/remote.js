@@ -3,23 +3,20 @@ const axios = require('axios');
 function createRemoteDB (host, port){
     const URL = `${host}:${port}`;
 
-    const req = (method, collection, data, action) => {
+    const req = (method, collection, id, data, action) => {
 
         let url = `${URL}/${collection}${action ? action : ''}`;
         console.log(url);
 
-        body = data ? data : '';
-
-        return new Promise((resolve, reject) => {
-            axios({
+        return new Promise(async (resolve, reject) => {
+            await axios({
                 method,
                 url,
-                data: body,
+                data,
             })
-            .then(response => resolve(response.data.body))
+            .then(response => resolve(response.data))
             .catch(err => reject(err));
            
-
         });
     }
 
@@ -29,18 +26,14 @@ function createRemoteDB (host, port){
     };
 
     const get = (collection, data, action ) => {
-        return req('GET', collection, null, action)
+        return req('GET', collection, null, data, action)
     }
     
 
     const insert = (collection, data) => {
-        return req('POST', collection, data)
-    }
 
-    const searchEmail = (collection, data, action) => {
-        return req('GET', collection, data, action)
+        return req('POST', collection, null, data);
     }
-
 
     const addMediaList = (collection, data, action) => {
         return req('PUT', collection, data, action)
@@ -60,18 +53,20 @@ function createRemoteDB (host, port){
     }
 
 
-    //const get = (collection, id) => {}
-    //const insert = (collection, id, data) => {}
+    const searchEmail = (collection, data, action) => {
+        return req('GET', collection, null, data, action);
+    };
 
     return {
         list,
+        get,
         insert,
         searchEmail,
         addMediaList,
-        get,
         deleteMedia,
         updateMedia,
         verifyEmail
+
     }
 }
 

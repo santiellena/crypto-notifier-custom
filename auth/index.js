@@ -1,28 +1,29 @@
 const jwt = require('jsonwebtoken');
 const configs = require('../config');
-const error  = require('../utils/error');
+const boom = require('@hapi/boom');
+const secret = configs.jwt.secret;
 
 function auth(data){
-    const token = jwt.sign({userData: data}, configs.jwt.secret, {
+    const token = jwt.sign(data, secret, {
         expiresIn: 60 * 60 * 24 * 7
     })
-    return token
+    return token;
 }
 
 const verify = (token) => {
     try{
         return jwt.verify(token, configs.jwt.secret);
     }catch(error){
-        throw error(error, 401);
+        throw boom.badRequest('Wrong JWT');
     };
-}
+};
 
 const check = {
     own: (req, owner) => {
         const decoded = decodeHeader(req);
-        if(decoded.id !== owner){
+        if(decoded._id !== owner){
 
-            throw error('Access denied', 401);
+            throw boom.unauthorized('Access denied');
         };
         return true;
     },
@@ -32,10 +33,10 @@ const check = {
 const getToken = (auth) => {
 
     if(!auth){
-        throw error('There is not TOKEN', 401);
+        throw boom.badRequest('There is not TOKEN');
     }
     if(auth.indexOf('Bearer ', '') == -1){
-        throw error('Incorrect TOKEN information', 401);
+        throw boom.badRequest('Incorrect TOKEN information');
     }
 
     let token = auth.replace('Bearer ', '');
@@ -48,7 +49,6 @@ const decodeHeader = (req) => {
     const token = getToken(authorization);
     const decoded = verify(token);
 
-    req.user = decoded;
     return decoded;
 };
 
