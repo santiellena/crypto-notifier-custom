@@ -47,4 +47,30 @@ router.put('/addMedia', secure('update'), (req,res) => {
 })
 
 
+router.put('/deleteMedia', secure('update'), (req,res) => {
+    const userId = req.user.userData._id
+    const mediaId = req.body.mediaId
+    controller.deleteMedia(userId, mediaId)
+    .then(data => {
+        response.success(req, res, data, 200);
+    })
+    .catch(e => {
+        response.error(req, res, e, 400);
+    });
+})
+
+router.put('/updateMedia', secure('update'), (req,res) => {
+    const userId = req.user.userData._id
+    const mediaId = req.body.mediaId
+    const value = req.body.value
+    controller.updateMedia(userId, mediaId, value)
+    .then(data => {
+        response.success(req, res, data, 200);
+    })
+    .catch(e => {
+        response.error(req, res, e, 400);
+    });
+})
+
+
 module.exports = router;

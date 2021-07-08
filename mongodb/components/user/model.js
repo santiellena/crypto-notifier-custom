@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 const uniqueValidator = require('mongoose-unique-validator')
 
 const userSchema = new Schema({
@@ -21,19 +21,26 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    mediaList:[
+    mediaList: [
         {
-            media: {type: String},
-            value: {type: String}
+            media: { type: String },
+            value: { type: String }
         }
     ],
+    active: {
+        type: Boolean,
+        default: false
+    },
+    secretTokenEmail: {
+        type: String
+    },
 
     followingList: [{
         type: Object,
     }],
 });
 
-userSchema.plugin(uniqueValidator, {message: "Error, {PATH} already exists"})
+userSchema.plugin(uniqueValidator, { message: "Error, {PATH} already exists" })
 
 
 module.exports = mongoose.model('user', userSchema);

@@ -5,7 +5,8 @@ function createRemoteDB (host, port){
 
     const req = (method, collection, id, data, action) => {
 
-        let url = `${URL}/${collection}${action ? action : ''}${id ? `/${id}` : ''}`;
+        let url = `${URL}/${collection}${action ? action : ''}`;
+        console.log(url);
 
         return new Promise(async (resolve, reject) => {
             await axios({
@@ -38,6 +39,19 @@ function createRemoteDB (host, port){
         return req('PUT', collection, data, action)
     }
 
+    const deleteMedia = (collection, data, action) => {
+        return req('PUT', collection, data, action)
+    }
+
+    const updateMedia = (collection, data, action) => {
+        return req('PUT', collection, data, action)
+    }
+
+    const verifyEmail = (collection, data, action) => {
+        console.log(data);
+        return req('PUT', collection, data, action)
+    }
+
 
     const searchEmail = (collection, data, action) => {
         return req('GET', collection, null, data, action);
@@ -49,6 +63,10 @@ function createRemoteDB (host, port){
         insert,
         searchEmail,
         addMediaList,
+        deleteMedia,
+        updateMedia,
+        verifyEmail
+
     }
 }
 
