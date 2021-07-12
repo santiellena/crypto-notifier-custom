@@ -21,13 +21,15 @@ module.exports = (injectedStore) => {
         }
         await binance.websockets.chart(marketAlias, "1h", async (symbol, interval, chart) => {
             let tick = binance.last(chart);
-            const last = chart[tick].close;
+            const lastPrice = chart[tick].close;
             // Optionally convert 'chart' object to array:
             // let ohlc = binance.ohlc(chart);
             // console.info(symbol, ohlc);
-            socket.io.emit('price', last);
-            return await symbol;
+
+            socket.io.emit('price', lastPrice);
         });
+
+        return marketAlias;
     }
     
     return {

@@ -1,11 +1,13 @@
 const URL = `http://localhost:3000`;
 const showDataMarket = async () => {
-            fetch(`${URL}/api/binance?alias=ETHUSDT`)
-            .then(result => {
-                const data = result.json();
+            await fetch(`${URL}/api/binance?alias=ETHUSDT`, {
+                method: 'get',
+                mode: 'cors',
+            })
+            .then(async result => {
+                const data = await result.json();
                 let strong = document.getElementById('alias');
-                strong.innerHTML = `${data}`;
-                console.log(data);
+                strong.innerHTML = `${data.body}`;
             })
             .catch(err => {
                 alert(err);
