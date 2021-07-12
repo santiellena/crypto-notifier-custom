@@ -1,9 +1,8 @@
 const express = require('express');
 const socket = require('./socket');
 const config = require('../config');
-const cors = require('cors')
-const db = require('../mongodb/index')
-
+const cors = require('cors');
+const path = require('path');
 
 //Middlewares
 const routes = require('./network/routes');
@@ -12,11 +11,13 @@ const error = require('../utils/error');
 //Initializations
 const app = express();
 const server = require('http').Server(app);
+socket.connect(server);
 
 //Middlewares settings
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
+app.use(express.static(path.resolve(__dirname, config.api.public.route)));
 
 //Routes
 routes(app);
