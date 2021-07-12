@@ -5,6 +5,7 @@ const apiKeyService = require('../../../auth/apiKeyService');
 const userController = require('../user/controller');
 const binance = require('../../../utils/binanceConfig');
 const { socket } = require('../../socket');
+const { default: axios } = require('axios');
 
 module.exports = (injectedStore) => {
     let store = injectedStore;
@@ -32,9 +33,20 @@ module.exports = (injectedStore) => {
         return marketAlias;
     }
     
+    async function getAllCryptos(){
+        axios({
+            method: 'GET',
+            url: 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false'
+        })
+        .then(res => {
+            console.log(res.data[0].image);
+        })
+        .catch(err => console.log(err.response))
+    }
+
     return {
         getChartInfo,
-
+        getAllCryptos
     }
 }
 /*binance.candlesticks(['BNBUSDT'], "1m", (candlesticks) => {
