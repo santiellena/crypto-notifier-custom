@@ -1,3 +1,4 @@
+const { createVerificationEmail } = require('../../../auth/verificationEmail');
 const store = require('./model');
 
 const list = async () => {
@@ -17,9 +18,23 @@ const searchEmail = async(email) => {
 
 const insert = async (data) => {
     const newUser = new store(data);
-
-    return await newUser.save();
+    console.log(data);
+    const saveUser = await newUser.save();
+    if (saveUser) {
+        const sendEmail = await createVerificationEmail(data.email, data.secretTokenEmail)
+        if (sendEmail) {
+            return saveUser
+        }
+    }else{
+        return false
+    }
 }
+
+const verifyEmail = async(data) => {
+    const result = await findByToken(data)
+    return await store.findOneAndUpdate({_id: result._id}, {$set: {active: true, secretTokenEmail: ''}})
+}
+
 
 
 const addMediaList = async(data) => {
@@ -27,15 +42,42 @@ const addMediaList = async(data) => {
 }
 
 
-const update = async () => {
+const deleteMedia = async(data) => {
+    const userId = data.userId
+    const mediaId = data.mediaId
+    
+    return await store.findOneAndUpdate({_id: userId, "mediaList._id": mediaId},{$pull: {mediaList: {_id: mediaId}}}, {runValidators: true, new: true} ) 
+}
 
+const updateMedia = async(data) => {
+    const userId = data.userId
+    const mediaId = data.mediaId
+    const value = data.value
+    
+    return await store.findOneAndUpdate({_id: userId, "mediaList._id": mediaId},{$set: {"mediaList.$.value": value}}, {runValidators: true, new: true} ) 
+}
+
+const update = async () => {
+    
     return true
 };
+
+
+
+//FUNCTIONS
+const findByToken = async(data) => {
+    return await store.findOne({secretTokenEmail: data})
+}
+
+
 module.exports = {
     list,
     get,
     insert,
     update,
     searchEmail, 
-    addMediaList
+    addMediaList,
+    deleteMedia,
+    updateMedia,
+    verifyEmail
 }

@@ -17,6 +17,10 @@ module.exports = (injectedStore) => {
 
         return await store.insert(data);
     };
+  
+    const verify = async(data) => {
+        return await store.verifyEmail(collection, data, '/verifyemail')
+    }
 
     const login = async(email, password, apiKeyToken) => {
         
@@ -46,11 +50,13 @@ module.exports = (injectedStore) => {
             };
         })
         .catch();
+
     }
 
     return {
         insert,
-        login
+        login,
+        verify
     }
 
 }
