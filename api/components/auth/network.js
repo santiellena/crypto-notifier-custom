@@ -7,6 +7,7 @@ const response = require('../../../network/response');
 const makeid = require('../../../utils/makeid');
 
 router.post('/register', (req, res) => {
+    console.log(req.body);
     const {username, fullName, email, password}  = req.body
     const secretTokenEmail = makeid(10)
 
@@ -19,6 +20,7 @@ router.post('/register', (req, res) => {
     }
     controller.insert(toCreate)
     .then(data => {
+        console.log(data);
         response.success(req, res, data, 200);
     })
     .catch(err => {

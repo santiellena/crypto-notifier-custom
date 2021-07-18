@@ -2,12 +2,12 @@ const axios = require('axios');
 const boom = require('@hapi/boom');
 const collection = 'user';
 const config = require('../../../config');
-const URL = `${config.mongoService.host}:${config.mongoService.port}/${collection}`;
+const URL = `${config.mongoService.host}:${config.mongoService.port}`;
 
 const searchEmail = async (email) => {
-
+    console.log(`${URL}/${collection}/searchEmail?email=${email}`);
         const { data } = await axios({
-            url: `${URL}/searchEmail?email=${email}`,
+            url: `${URL}/${collection}/searchEmail?email=${email}`,
             method: 'get',
         });
         

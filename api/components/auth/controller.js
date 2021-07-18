@@ -34,7 +34,7 @@ module.exports = (injectedStore) => {
         };
 
         const apiKey = await apiKeyService(apiKeyToken);
-
+        console.log(password);
         return bcrypt.compare(password, data.password)
         .then(equal => {
             if(equal == true){
