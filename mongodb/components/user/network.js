@@ -28,7 +28,11 @@ router.post('/', (req, res, next) => {
 router.get('/searchEmail', (req, res) => {
     store.searchEmail(req.query.email)
     .then(data => {
-        response.success(req, res, data, 200);
+        if (data) {
+            return response.success(req, res, data, 200);
+        }else{
+            return response.success(req, res, data, 200);
+        }
     })
     .catch(e => {
         response.error(req, res, e, 400);

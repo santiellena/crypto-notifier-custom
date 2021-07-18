@@ -12,7 +12,9 @@ const get = async (id) => {
 };
 
 const searchEmail = async(email) => {
-    return await store.findOne({email: email})
+    const response = await store.findOne({email: email})
+    console.log(response);
+    return response
 }
 
 

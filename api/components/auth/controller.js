@@ -15,8 +15,23 @@ module.exports = (injectedStore) => {
             throw boom.badRequest('Incomplete fields');
         }
 
-        return await store.insert(data);
+        const response = await store.insert(data);
+        if (response) {
+            return true
+        }else{
+            return false
+        }
     };
+
+    const findEmail = async(data) => {
+        const response = await store.searchEmail(data)
+        console.log('res',response);
+        if (response) {
+            return true
+        }else{
+            return false
+        }
+    }
   
     const verify = async(data) => {
         return await store.verifyEmail(collection, data, '/verifyemail')
@@ -56,7 +71,8 @@ module.exports = (injectedStore) => {
     return {
         insert,
         login,
-        verify
+        verify,
+        findEmail
     }
 
 }
