@@ -21,7 +21,7 @@ const verify = (token) => {
 const check = {
     own: (req, owner) => {
         const decoded = decodeHeader(req);
-        if(decoded._id !== owner){
+        if(decoded.id !== owner){
 
             throw boom.unauthorized('Access denied');
         };
@@ -48,6 +48,7 @@ const decodeHeader = (req) => {
     const authorization = req.headers.authorization || '';
     const token = getToken(authorization);
     const decoded = verify(token);
+    console.log(decoded);
 
     return decoded;
 };
