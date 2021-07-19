@@ -33,6 +33,7 @@ router.post("/findByEmail", (req, res) => {
     const { email } = req.body
     controller.findEmail(email)
         .then(data => {
+            //IF EXIST RETURN FALSE
             if (data) {
                 response.success(req, res, { status: false }, 200);
             }
@@ -53,6 +54,7 @@ router.post("/findbyusername", (req, res) => {
     const { username } = req.body
     controller.findUsename(username)
         .then(data => {
+            //IF EXIST RETURN FALSE
             if (data) {
                 response.success(req, res, { status: false }, 200);
             }
