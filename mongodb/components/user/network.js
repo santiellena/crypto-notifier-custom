@@ -39,6 +39,20 @@ router.get('/searchEmail', (req, res) => {
     });
 })
 
+router.get('/searchusername', (req,res) => {
+    store.searchUsername(req.query.username)
+    .then(data => {
+        if (data) {
+            return response.success(req, res, data, 200);
+        }else{
+            return response.success(req, res, data, 200);
+        }
+    })
+    .catch(e => {
+        response.error(req, res, e, 400);
+    });
+})
+
 //get user
 router.get('/', (req, res, next) => {
 

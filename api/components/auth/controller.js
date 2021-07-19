@@ -25,7 +25,16 @@ module.exports = (injectedStore) => {
 
     const findEmail = async(data) => {
         const response = await store.searchEmail(data)
-        console.log('res',response);
+        if (response) {
+            return true
+        }else{
+            return false
+        }
+    }
+
+    const findUsename = async data => {
+        const response = await store.searchUsername(data)
+        console.log(response);
         if (response) {
             return true
         }else{
@@ -72,7 +81,8 @@ module.exports = (injectedStore) => {
         insert,
         login,
         verify,
-        findEmail
+        findEmail,
+        findUsename
     }
 
 }

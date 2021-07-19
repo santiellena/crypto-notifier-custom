@@ -31,22 +31,40 @@ router.post('/register', (req, res) => {
 
 router.post("/findByEmail", (req, res) => {
     const { email } = req.body
-    
-    controller.findEmail( email)
-    .then(data => {
-        if (data) {
-            response.success(req, res, {state: true}, 200);
-        }
-        else{
-            response.success(req, res, {status: false}, 200);
-        }
-        return
-    })
-    .catch(err => {
-        response.error(req, res, err, 400);
-        return
-    })
+    controller.findEmail(email)
+        .then(data => {
+            if (data) {
+                response.success(req, res, { status: false }, 200);
+            }
+            else {
+                response.success(req, res, { status: true }, 200);
+            }
+            return
+        })
+        .catch(err => {
+            response.error(req, res, err, 400);
+            return
+        })
 
+})
+
+
+router.post("/findbyusername", (req, res) => {
+    const { username } = req.body
+    controller.findUsename(username)
+        .then(data => {
+            if (data) {
+                response.success(req, res, { status: false }, 200);
+            }
+            else {
+                response.success(req, res, { status: true }, 200);
+            }
+            return
+        })
+        .catch(err => {
+            response.error(req, res, err, 400);
+            return
+        })
 })
 
 

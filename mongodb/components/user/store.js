@@ -17,6 +17,12 @@ const searchEmail = async(email) => {
     return response
 }
 
+const searchUsername = async(username) => {
+    const response = await store.findOne({username: username})
+    console.log(response);
+    return response
+}
+
 
 const insert = async (data) => {
     const newUser = new store(data);
@@ -81,5 +87,6 @@ module.exports = {
     addMediaList,
     deleteMedia,
     updateMedia,
-    verifyEmail
+    verifyEmail,
+    searchUsername
 }
