@@ -15,8 +15,32 @@ module.exports = (injectedStore) => {
             throw boom.badRequest('Incomplete fields');
         }
 
-        return await store.insert(data);
+        const response = await store.insert(data);
+        if (response) {
+            return true
+        }else{
+            return false
+        }
     };
+
+    const findEmail = async(data) => {
+        const response = await store.searchEmail(data)
+        if (response) {
+            return true
+        }else{
+            return false
+        }
+    }
+
+    const findUsename = async data => {
+        const response = await store.searchUsername(data)
+        console.log(response);
+        if (response) {
+            return true
+        }else{
+            return false
+        }
+    }
   
     const verify = async(data) => {
         return await store.verifyEmail(collection, data, '/verifyemail')
@@ -34,7 +58,6 @@ module.exports = (injectedStore) => {
         };
 
         const apiKey = await apiKeyService(apiKeyToken);
-        console.log(password);
         return bcrypt.compare(password, data.password)
         .then(equal => {
             if(equal == true){
@@ -42,7 +65,7 @@ module.exports = (injectedStore) => {
                     id: data._id,
                     scopes: apiKey.scopes,
                 };
-                
+                console.log(tokenData);
                 return auth.auth(tokenData);  //Returns TOKEN
             } else{
 
@@ -56,7 +79,9 @@ module.exports = (injectedStore) => {
     return {
         insert,
         login,
-        verify
+        verify,
+        findEmail,
+        findUsename
     }
 
 }
