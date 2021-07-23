@@ -71,6 +71,17 @@ const update = async () => {
 };
 
 
+const addCrypto = async(data) => {
+    const findUser = await store.findOne({_id: data.userId})
+    if (findUser) {
+        return await store.findOneAndUpdate({_id: data.userId}, {$push: {cryptoList: {cryptoId: data.cryptoId, price: data.price, change: data.change}}}, {new: true, runValidators: true})
+    }else{
+        return false
+    }
+}
+
+
+
 
 //FUNCTIONS
 const findByToken = async(data) => {
@@ -88,5 +99,6 @@ module.exports = {
     deleteMedia,
     updateMedia,
     verifyEmail,
-    searchUsername
+    searchUsername,
+    addCrypto
 }

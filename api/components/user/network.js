@@ -73,4 +73,21 @@ router.put('/updateMedia', secure('update'), (req, res) => {
 })
 
 
+router.put("/addCrypto", secure("update"), (req,res) => {
+    const userId = req.body.id
+    const change = req.body.change
+    const cryptoId = req.body.cryptoId
+    const price = req.body.price
+
+    controller.addCrypto(userId, cryptoId, change, price)
+    .then(data => {
+        response.success(req, res, data, 200);
+    })
+    .catch(e => {
+        response.error(req, res, e, 400);
+    });
+
+})
+
+
 module.exports = router;

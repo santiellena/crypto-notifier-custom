@@ -35,9 +35,13 @@ const userSchema = new Schema({
         type: String
     },
 
-    followingList: [{
-        type: Object,
-    }],
+    cryptoList: [
+        {
+            cryptoId: {type: String, required: true},
+            change: {type: Number, required: true},
+            price: {type: Number, required: true}
+        }
+    ],
 });
 
 userSchema.plugin(uniqueValidator, { message: "Error, {PATH} already exists" })
