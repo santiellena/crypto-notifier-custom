@@ -81,7 +81,10 @@ router.put("/addCrypto", secure("update"), (req,res) => {
 
     controller.addCrypto(userId, cryptoId, change, price)
     .then(data => {
-        response.success(req, res, data, 200);
+        if (data.body !== "") {
+            return response.success(req, res, data, 200);
+        }
+        response.success(req, res, "error", 200);
     })
     .catch(e => {
         response.error(req, res, e, 400);

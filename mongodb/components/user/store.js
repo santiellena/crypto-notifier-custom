@@ -74,7 +74,12 @@ const update = async () => {
 const addCrypto = async(data) => {
     const findUser = await store.findOne({_id: data.userId})
     if (findUser) {
-        return await store.findOneAndUpdate({_id: data.userId}, {$push: {cryptoList: {cryptoId: data.cryptoId, price: data.price, change: data.change}}}, {new: true, runValidators: true})
+        const findUserCrypto = await store.findOne({_id: data.userId, "cryptoList.cryptoId": data.cryptoId})
+        console.log(findUserCrypto);
+        if (!findUserCrypto) {
+            return await store.findOneAndUpdate({_id: data.userId}, {$push: {cryptoList: {cryptoId: data.cryptoId, price: data.price, change: data.change}}}, {new: true, runValidators: true})
+        }
+        return false
     }else{
         return false
     }
