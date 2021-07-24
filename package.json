@@ -5,6 +5,7 @@
     "bcrypt": "^5.0.1",
     "coingecko-api": "^1.0.10",
     "crypto": "^1.0.1",
+    "expo-server-sdk": "^3.6.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.14",
