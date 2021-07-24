@@ -40,8 +40,22 @@ const addMediaList = async (toSend) => {
     return data;
 };
 
+
+const addCrypto = async(toSend) => {
+    const { data } = await axios({
+        url: `${URL}/addcrypto`,
+        method: 'put',
+        data: toSend
+    }) 
+
+    return data
+
+}
+
+
 module.exports = {
     get,
     list,
     addMediaList,
+    addCrypto
 };

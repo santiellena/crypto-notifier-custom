@@ -59,13 +59,26 @@ module.exports = (injectedStore) => {
         return userGet
     }
 
+    const addCrypto = async(userId, cryptoId, change, price) => {
+        const toSend = {
+            userId,
+            cryptoId,
+            change,
+            price
+        }
+
+        const addCryptoRes = await store.addCrypto(toSend)
+        return addCryptoRes
+    }
+
 
     return {
         list,
         update,
         get,
         deleteMedia,
-        updateMedia
+        updateMedia,
+        addCrypto
     }
 
 }

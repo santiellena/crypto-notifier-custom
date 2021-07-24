@@ -134,5 +134,19 @@ router.put("/updateMedia", (req,res,next) => {
 })
 
 
+router.put("/addcrypto", (req,res,next) => {
+    store.addCrypto(req.body)
+    .then(data => {
+        if (data) {
+           return response.success(req, res, "You has added a new crypto", 200)
+        }
+        response.success(req, res, data, 200)
+    })
+    .catch(e => {
+        response.error(req, res, e, 400);
+    })
+})
+
+
 
 module.exports = router;

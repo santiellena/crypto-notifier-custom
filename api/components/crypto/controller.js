@@ -1,10 +1,14 @@
 const boom = require('@hapi/boom');
+const CoinGecko = require('coingecko-api');
 const bcrypt = require('bcrypt');
 const auth = require('../../../auth');
 const apiKeyService = require('../../../auth/apiKeyService');
 const userController = require('../user/controller');
 const binance = require('../../../utils/binanceConfig');
 const { socket } = require('../../socket');
+
+const CoinGeckoClient = new CoinGecko();
+
 
 module.exports = (injectedStore) => {
     let store = injectedStore;
@@ -13,28 +17,23 @@ module.exports = (injectedStore) => {
         throw boom.internal('No injected database');
     }
 
-    const getChartInfo = async (marketAlias) => {
-      
-        if(!marketAlias){
-
-            throw boom.badRequest('There is not market alias');
-        }
-        await binance.websockets.chart(marketAlias, "1h", async (symbol, interval, chart) => {
-            let tick = binance.last(chart);
-            const lastPrice = chart[tick].close;
-            // Optionally convert 'chart' object to array:
-            // let ohlc = binance.ohlc(chart);
-            // console.info(symbol, ohlc);
-
-            socket.io.emit('price', lastPrice);
-        });
-
-        return marketAlias;
+    const getCryptoData = async() => {
+        let data = await CoinGeckoClient.coins.all()
+        return data
     }
-    
-    return {
-        getChartInfo,
 
+    const getCryptoDataId = async(id) => {
+        let data = await CoinGeckoClient.coins.fetchMarketChart(id, {
+            interval: 'hourly'
+        })
+        return data.data.prices
+    }
+
+
+
+    return {
+        getCryptoData,
+        getCryptoDataId
     }
 }
 /*binance.candlesticks(['BNBUSDT'], "1m", (candlesticks) => {
