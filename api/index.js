@@ -10,8 +10,8 @@ const error = require('../utils/error');
 
 //Initializations
 const app = express();
-const server = require('http').Server(app);
-socket.connect(server);
+const server = require('http').createServer(app);
+require('./socket')(server)
 
 //Middlewares settings
 app.use(express.json());
